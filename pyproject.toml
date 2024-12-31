@@ -2,8 +2,9 @@
 name = "homa"
 version = "0.1.1"
 description = "A repository to train specialized image generation algorithms"
-authors = ["Armin"]
-license = "MIT"
+authors = [{name = "Armin"}]
+maintainers = [{name = "Armin"}]
+license = {file = "LICENSE"}
 readme = "README.md"
 requires-python = "==3.10.0"
 

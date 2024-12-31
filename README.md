@@ -87,10 +87,10 @@ To restart in detached mode:
 ```
 
 ### Update requirements:
-To add new or change existing requirements, modofy [requirements.txt](requirements.txt) file. Then run the following command to update the [requirements.in](requirements.in) file:
+To add new or change existing requirements, modofy [requirements.in](requirements.in) file. Then run the following command to update the [requirements.txt](requirements.txt) file:
 
 ```bash
-uv pip compile requirements.txt -o requirements.in
+uv pip compile requirements.in -o requirements.txt
 ```
 
 ---
