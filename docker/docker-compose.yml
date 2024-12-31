@@ -1,0 +1,9 @@
+services:
+  homa:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+    volumes:
+      - ../:/homa
+    working_dir: /homa
+    command: bash
