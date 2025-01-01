@@ -16,7 +16,8 @@ dev-dependencies = [
     "pytest==8.3.3",
     "pytest-env==1.1.4",
     "pytest-mock==3.14.0",
-    "ruff==0.6.3"
+    "ruff==0.6.3",
+    "types-tqdm==4.67.0.20241221"
 ]
 
 [tool.ruff]
@@ -33,3 +34,12 @@ extend-ignore = ["E712"]
 [tool.mypy]
 packages = ["src"]
 plugins = ["numpy.typing.mypy_plugin", "pydantic.mypy"]
+disable_error_code = ["annotation-unchecked"]
+
+[[tool.mypy.overrides]]
+module = "datasets.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "huggingface_hub.*"
+ignore_missing_imports = true

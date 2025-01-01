@@ -16,11 +16,9 @@ diffusion/
 │   └── __init__.py
 │
 ├── modules/                # Model definitions
-│   ├── diffusion_model.py  # Custom diffusion model implementation
 │   └── __init__.py
 │
 ├── training/               # Training loop
-│   ├── trainer.py          # Training script using PyTorch Lightning
 │   └── __init__.py
 │
 ├── evaluation/             # Evaluation tools

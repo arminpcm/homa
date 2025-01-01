@@ -91,6 +91,7 @@ To add new or change existing requirements, modofy [requirements.in](requirement
 
 ```bash
 uv pip compile requirements.in -o requirements.txt
+uv pip install -r requirements.txt
 ```
 
 ---
