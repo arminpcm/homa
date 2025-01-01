@@ -44,12 +44,12 @@ class SimulatedDataset(BaseDataset):
 
         # Random center within central region
         c_x = np.random.randint(
-            center - 2 * quarter_size,  # left bound: center - 1/2 image size
-            center + 2 * quarter_size,  # right bound: center + 1/2 image size
+            center - quarter_size,  # left bound: center - 1/2 image size
+            center + quarter_size,  # right bound: center + 1/2 image size
         )
         c_y = np.random.randint(
-            center - 2 * quarter_size,  # upper bound: center - 1/2 image size
-            center + 2 * quarter_size,  # lower bound: center + 1/2 image size
+            center - quarter_size,  # upper bound: center - 1/2 image size
+            center + quarter_size,  # lower bound: center + 1/2 image size
         )
 
         # Random distance between min_distance and max_distance meters
@@ -88,7 +88,6 @@ class SimulatedDataset(BaseDataset):
                     "equilateral",
                     "isosceles",
                     "right",
-                    "random",  # Keep some randomness but with constraints
                 ]
             )
 
@@ -107,23 +106,18 @@ class SimulatedDataset(BaseDataset):
                 remaining = np.random.uniform(20, 70)  # Avoid too sharp angles
                 angles = (90.0, remaining, 90.0 - remaining)
 
-            else:  # random but constrained
-                # Use dirichlet but ensure no angle is too small or too large
-                while True:
-                    angles = (
-                        np.random.dirichlet([2, 2, 2]) * 180
-                    )  # Alpha=2 gives more balanced distribution
-                    if all(
-                        20 <= angle <= 120 for angle in angles
-                    ):  # Reasonable angle constraints
-                        break
-                angles = tuple(angles)
-
             return Triangle(c_x, c_y, angles, size, distance, color)
 
     def __getitem__(self, idx) -> Tuple[torch.Tensor, str]:
         # Initialize a black RGB image: (3, H, W)
-        image = np.zeros(shape=(self.image_size, self.image_size, 3), dtype=np.float32)
+        gray_value = np.random.randint(
+            100, 230
+        )  # Random gray value between 100 and 230
+        image = np.full(
+            shape=(self.image_size, self.image_size, 3),
+            fill_value=gray_value,
+            dtype=np.uint8,  # Changed to uint8 since we're using 0-255 values
+        )
 
         # Generate random number of shapes
         num_shapes = np.random.randint(1, self.max_shapes + 1)
@@ -147,6 +141,6 @@ class SimulatedDataset(BaseDataset):
 
         # Convert image to Torch tensor (C, H, W)
         image = np.transpose(image, (2, 0, 1))
-        image_tensor = torch.tensor(image)
+        image_tensor = torch.tensor(image, dtype=torch.uint8)
 
         return image_tensor, caption
