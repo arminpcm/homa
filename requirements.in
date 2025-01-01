@@ -16,3 +16,6 @@ tqdm==4.67.1
 opencv-python==4.10.0.84
 jupyter==1.1.1
 matplotlib==3.10.0
+accelerate==1.2.1
+torchvision==0.20.1
+peft==0.14.0
